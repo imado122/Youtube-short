@@ -1,85 +1,131 @@
 import { motion } from 'framer-motion';
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
+
+const FEATURES = [
+  {
+    icon: '⚡',
+    title: 'ULTRA-LIGHT',
+    titleAr: 'وزن خفيف',
+    desc: 'Silicon shell tech — half the weight',
+    color: '#E8C97A',
+  },
+  {
+    icon: '🛡️',
+    title: 'INDESTRUCTIBLE',
+    titleAr: 'لا تُكسر',
+    desc: 'Built to survive every conveyor belt',
+    color: '#E8C97A',
+  },
+  {
+    icon: '✈️',
+    title: 'TSA APPROVED',
+    titleAr: 'معتمدة دولياً',
+    desc: '4 spinner wheels · 360° smooth roll',
+    color: '#E8C97A',
+  },
+  {
+    icon: '🔒',
+    title: 'SECURE LOCK',
+    titleAr: 'قفل آمن',
+    desc: 'Combination TSA-approved lock built-in',
+    color: '#E8C97A',
+  },
+];
 
 export function Scene4() {
   const [phase, setPhase] = useState(0);
-
   useEffect(() => {
-    const timers = [
-      setTimeout(() => setPhase(1), 500),
-      setTimeout(() => setPhase(2), 2000),
-      setTimeout(() => setPhase(3), 3500),
-      setTimeout(() => setPhase(4), 5000),
-      setTimeout(() => setPhase(5), 8500), // exit
+    const t = [
+      setTimeout(() => setPhase(1), 300),
+      setTimeout(() => setPhase(2), 800),
+      setTimeout(() => setPhase(3), 1600),
+      setTimeout(() => setPhase(4), 2400),
+      setTimeout(() => setPhase(5), 3200),
+      setTimeout(() => setPhase(6), 4200),
     ];
-    return () => timers.forEach(t => clearTimeout(t));
+    return () => t.forEach(clearTimeout);
   }, []);
 
-  const pillars = [
-    { num: "01", text: "CRAFTED IN DAMASCUS" },
-    { num: "02", text: "SILICON SHELL" },
-    { num: "03", text: "40 YEARS PROVEN" }
-  ];
-
   return (
-    <motion.div 
-      className="absolute inset-0 flex items-center justify-center bg-[var(--color-bg-dark)] overflow-hidden"
-      initial={{ opacity: 0, y: '20%' }}
+    <motion.div
+      className="absolute inset-0 overflow-hidden bg-[#0A0A0A]"
+      initial={{ opacity: 0, y: '3%' }}
       animate={{ opacity: 1, y: '0%' }}
-      exit={{ opacity: 0, scale: 1.1 }}
-      transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
     >
+      {/* Luggage image faded bg */}
       <motion.div
-        className="absolute inset-0 border-[1px] border-[var(--color-deep)]/30 m-[5vw]"
-        initial={{ scale: 0.9, opacity: 0 }}
-        animate={{ scale: phase >= 1 ? 1 : 0.9, opacity: phase >= 1 ? 1 : 0 }}
-        transition={{ duration: 1.5, ease: 'easeOut' }}
+        className="absolute right-0 top-0 bottom-0 w-[40vw] opacity-15"
+        style={{
+          backgroundImage: `url(${import.meta.env.BASE_URL}images/luggage-hero.png)`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'left center',
+        }}
       />
+      <div className="absolute right-0 top-0 bottom-0 w-[50vw] bg-gradient-to-r from-[#0A0A0A] to-transparent" />
+
+      {/* Header */}
       <motion.div
-        className="absolute inset-0 border-[1px] border-[var(--color-primary)]/40 m-[6vw]"
-        initial={{ scale: 1.1, opacity: 0 }}
-        animate={{ scale: phase >= 1 ? 1 : 1.1, opacity: phase >= 1 ? 1 : 0 }}
-        transition={{ duration: 1.5, ease: 'easeOut' }}
-      />
+        className="absolute top-[5vh] left-[8vw]"
+        initial={{ opacity: 0, x: -20 }}
+        animate={{ opacity: phase >= 1 ? 1 : 0, x: phase >= 1 ? 0 : -20 }}
+        transition={{ duration: 0.7 }}
+      >
+        <div className="text-[1.6vw] font-body tracking-[0.5em] text-[#E8C97A]/60 uppercase mb-1">What sets us apart</div>
+        <div className="text-[2vw] font-arabic text-white/40">ما يميزنا</div>
+      </motion.div>
 
-      <div className="z-10 w-full px-[10vw] flex flex-col gap-12 relative">
-        <motion.div
-          className="absolute -top-[15vh] right-[10vw] text-[20vw] font-display font-black text-white/[0.03] leading-none select-none pointer-events-none"
-          animate={{ x: phase >= 5 ? '5vw' : '0vw' }}
-          transition={{ duration: 8, ease: 'linear' }}
-        >
-          WHY
-        </motion.div>
-
-        {pillars.map((pillar, i) => (
-          <div key={pillar.num} className={`flex items-center gap-8 ${i === 1 ? 'ml-[15vw]' : i === 2 ? 'ml-[5vw]' : ''}`}>
+      {/* Feature cards grid */}
+      <div className="absolute inset-0 flex items-center px-[8vw] pt-[12vh]">
+        <div className="grid grid-cols-2 gap-[2vw] w-full">
+          {FEATURES.map((f, i) => (
             <motion.div
-              className="text-[8vw] font-display font-bold text-[var(--color-accent)] leading-none italic"
-              initial={{ opacity: 0, x: -50 }}
-              animate={phase >= 2 + i ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
-              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+              key={i}
+              className="relative overflow-hidden rounded-[1vw] p-[2.5vw]"
+              style={{
+                background: 'linear-gradient(135deg, rgba(232,201,122,0.06) 0%, rgba(255,255,255,0.02) 100%)',
+                border: '1px solid rgba(232,201,122,0.15)',
+              }}
+              initial={{ opacity: 0, y: 30, scale: 0.95 }}
+              animate={{
+                opacity: phase >= 2 + i * 0.8 ? 1 : 0,
+                y: phase >= 2 + i * 0.8 ? 0 : 30,
+                scale: phase >= 2 + i * 0.8 ? 1 : 0.95,
+              }}
+              transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
             >
-              {pillar.num}
-            </motion.div>
-            <div className="flex-1 overflow-hidden relative">
+              {/* Hover shimmer */}
               <motion.div
-                className="absolute left-0 bottom-0 h-[2px] bg-[var(--color-primary)]/50"
-                initial={{ width: 0 }}
-                animate={{ width: phase >= 2 + i ? '100%' : 0 }}
-                transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+                className="absolute inset-0 opacity-0"
+                style={{ background: 'linear-gradient(135deg, rgba(232,201,122,0.08) 0%, transparent 100%)' }}
+                animate={{ opacity: [0, 0.6, 0] }}
+                transition={{ duration: 2, delay: 2 + i * 0.3, repeat: Infinity, repeatDelay: 3 }}
               />
-              <motion.div
-                className="text-[4vw] font-body font-light text-[var(--color-text-primary)] tracking-widest pb-4"
-                initial={{ opacity: 0, y: 50 }}
-                animate={phase >= 2 + i ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-                transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
-              >
-                {pillar.text}
-              </motion.div>
-            </div>
-          </div>
-        ))}
+
+              <div className="text-[3.5vw] mb-[1vw]">{f.icon}</div>
+              <div className="text-[2.8vw] font-display font-bold text-[#E8C97A] leading-none mb-1 tracking-wide">
+                {f.title}
+              </div>
+              <div className="text-[1.8vw] font-arabic text-white/50 mb-[1vw]">{f.titleAr}</div>
+              <div className="h-[1px] bg-[#E8C97A]/20 mb-[1vw] w-[60%]" />
+              <div className="text-[1.6vw] font-body font-light text-white/60 leading-relaxed">{f.desc}</div>
+            </motion.div>
+          ))}
+        </div>
       </div>
+
+      {/* Bottom website teaser */}
+      <motion.div
+        className="absolute bottom-[4vh] left-0 right-0 flex justify-center"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: phase >= 6 ? 1 : 0 }}
+        transition={{ duration: 1 }}
+      >
+        <span className="text-[1.6vw] font-body tracking-[0.3em] text-[#E8C97A]/50 uppercase">
+          alnasme.shamsaver1.workers.dev
+        </span>
+      </motion.div>
     </motion.div>
   );
 }
