@@ -1,74 +1,145 @@
 import { motion } from 'framer-motion';
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 export function Scene1() {
   const [phase, setPhase] = useState(0);
-
   useEffect(() => {
-    const timers = [
-      setTimeout(() => setPhase(1), 500),
-      setTimeout(() => setPhase(2), 1500),
-      setTimeout(() => setPhase(3), 3000),
-      setTimeout(() => setPhase(4), 6500), // exit
+    const t = [
+      setTimeout(() => setPhase(1), 300),
+      setTimeout(() => setPhase(2), 900),
+      setTimeout(() => setPhase(3), 1600),
+      setTimeout(() => setPhase(4), 2800),
+      setTimeout(() => setPhase(5), 4200),
+      setTimeout(() => setPhase(6), 6800),
     ];
-    return () => timers.forEach(t => clearTimeout(t));
+    return () => t.forEach(clearTimeout);
   }, []);
 
   return (
-    <motion.div 
-      className="absolute inset-0 flex flex-col items-center justify-center bg-[var(--color-bg-dark)] overflow-hidden"
+    <motion.div
+      className="absolute inset-0 overflow-hidden bg-black"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      exit={{ opacity: 0, scale: 1.1, filter: 'blur(10px)' }}
-      transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
+      exit={{ opacity: 0, scale: 1.05 }}
+      transition={{ duration: 0.6 }}
     >
-      <div className="absolute inset-0 z-0 overflow-hidden">
-        <motion.img 
-          src={`${import.meta.env.BASE_URL}images/luggage-hero.png`}
-          className="absolute inset-0 w-full h-full object-cover opacity-60"
-          initial={{ scale: 1.2 }}
-          animate={{
-            scale: phase >= 4 ? 1.3 : 1,
-            opacity: phase >= 4 ? 0 : 0.6
-          }}
-          transition={{ duration: 8, ease: 'easeOut' }}
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-bg-dark)] via-transparent to-transparent opacity-80" />
-      </div>
+      {/* Cinematic background */}
+      <motion.div
+        className="absolute inset-0"
+        initial={{ scale: 1.15 }}
+        animate={{ scale: phase >= 6 ? 1.2 : 1.05 }}
+        transition={{ duration: 8, ease: 'easeOut' }}
+        style={{
+          backgroundImage: `url(https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=1280&q=80)`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+        }}
+      />
+      <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/50 to-black/90" />
 
-      <div className="z-10 text-center flex flex-col items-center justify-center pt-[20vh]">
+      {/* Scanline sweep on entry */}
+      <motion.div
+        className="absolute inset-0 pointer-events-none"
+        initial={{ scaleY: 0, originY: 0 }}
+        animate={{ scaleY: phase >= 1 ? 0 : 1 }}
+        transition={{ duration: 0.4 }}
+        style={{ background: 'linear-gradient(180deg, transparent 0%, rgba(232,201,122,0.08) 50%, transparent 100%)' }}
+      />
+
+      {/* Top label */}
+      <motion.div
+        className="absolute top-[8vh] left-0 right-0 flex justify-center"
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: phase >= 2 ? 1 : 0, y: phase >= 2 ? 0 : -20 }}
+        transition={{ duration: 0.6 }}
+      >
+        <span className="text-[1.8vw] font-body tracking-[0.5em] text-[#E8C97A]/80 uppercase">
+          Al Nasme · النسمة
+        </span>
+      </motion.div>
+
+      {/* Main hook text */}
+      <div className="absolute inset-0 flex flex-col items-center justify-center z-10 px-[8vw]">
         <div className="overflow-hidden">
-          <motion.h1 
-            className="text-[12vw] font-display font-bold leading-none text-[var(--color-primary)] tracking-wide"
-            initial={{ y: '100%', opacity: 0 }}
-            animate={{ y: phase >= 1 ? '0%' : '100%', opacity: phase >= 1 ? 1 : 0 }}
-            transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+          <motion.div
+            className="text-[6vw] font-display font-bold text-white/90 text-center leading-tight tracking-wide"
+            initial={{ y: '110%' }}
+            animate={{ y: phase >= 1 ? '0%' : '110%' }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           >
-            Al Nasme
-          </motion.h1>
+            هذه ليست مجرد حقيبة
+          </motion.div>
         </div>
-        <div className="overflow-hidden mt-4">
-          <motion.h2 
-            className="text-[6vw] font-arabic font-normal leading-none text-[var(--color-text-primary)] opacity-90"
-            initial={{ y: '100%', opacity: 0 }}
-            animate={{ y: phase >= 2 ? '0%' : '100%', opacity: phase >= 2 ? 0.9 : 0 }}
-            transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+
+        <div className="overflow-hidden mt-3">
+          <motion.div
+            className="text-[4.5vw] font-body font-light text-[#E8C97A] text-center tracking-widest uppercase"
+            initial={{ y: '110%' }}
+            animate={{ y: phase >= 2 ? '0%' : '110%' }}
+            transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
           >
-            النسمة
-          </motion.h2>
+            This is your statement.
+          </motion.div>
         </div>
-        
+
+        {/* Animated gold divider */}
         <motion.div
-          className="mt-[10vh] flex items-center justify-center gap-4 text-[1.5vw] font-body tracking-[0.3em] text-[var(--color-text-muted)]"
+          className="my-8 h-[1px] bg-gradient-to-r from-transparent via-[#E8C97A] to-transparent"
+          initial={{ width: 0 }}
+          animate={{ width: phase >= 3 ? '60vw' : 0 }}
+          transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+        />
+
+        {/* Sub tagline */}
+        <motion.div
+          className="text-[2.8vw] font-body font-light text-white/70 text-center tracking-[0.25em] uppercase"
           initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: phase >= 3 ? 1 : 0, y: phase >= 3 ? 0 : 20 }}
-          transition={{ duration: 1.5, ease: 'easeOut' }}
+          animate={{ opacity: phase >= 4 ? 1 : 0, y: phase >= 4 ? 0 : 20 }}
+          transition={{ duration: 1, ease: 'easeOut' }}
         >
-          <span>THE BREEZE</span>
-          <span className="text-[var(--color-primary)] text-2xl">•</span>
-          <span className="font-arabic tracking-normal text-[2vw]">منذ ١٩٨٥</span>
+          Premium Luggage · Since 1985
+        </motion.div>
+
+        {/* Scroll indicator */}
+        <motion.div
+          className="absolute bottom-[6vh] flex flex-col items-center gap-2"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: phase >= 5 ? 1 : 0 }}
+          transition={{ duration: 1 }}
+        >
+          <motion.div
+            className="w-[1px] bg-[#E8C97A]"
+            animate={{ height: ['0px', '40px', '0px'] }}
+            transition={{ repeat: Infinity, duration: 1.5, ease: 'easeInOut' }}
+          />
         </motion.div>
       </div>
+
+      {/* Corner accents */}
+      <motion.div
+        className="absolute top-[4vh] left-[4vw] w-[3vw] h-[3vw] border-t-[1px] border-l-[1px] border-[#E8C97A]/50"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: phase >= 1 ? 1 : 0 }}
+        transition={{ duration: 0.8 }}
+      />
+      <motion.div
+        className="absolute top-[4vh] right-[4vw] w-[3vw] h-[3vw] border-t-[1px] border-r-[1px] border-[#E8C97A]/50"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: phase >= 1 ? 1 : 0 }}
+        transition={{ duration: 0.8 }}
+      />
+      <motion.div
+        className="absolute bottom-[4vh] left-[4vw] w-[3vw] h-[3vw] border-b-[1px] border-l-[1px] border-[#E8C97A]/50"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: phase >= 1 ? 1 : 0 }}
+        transition={{ duration: 0.8 }}
+      />
+      <motion.div
+        className="absolute bottom-[4vh] right-[4vw] w-[3vw] h-[3vw] border-b-[1px] border-r-[1px] border-[#E8C97A]/50"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: phase >= 1 ? 1 : 0 }}
+        transition={{ duration: 0.8 }}
+      />
     </motion.div>
   );
 }
