@@ -1,0 +1,72 @@
+name: Render YouTube Short as MP4
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Use standalone package.json
+        run: cp package.standalone.json package.json
+
+      - name: Install dependencies
+        run: npm install --legacy-peer-deps
+
+      - name: Build app
+        run: npm run build
+
+      - name: Install Playwright + Chromium
+        run: npx playwright install chromium --with-deps
+
+      - name: Start preview server
+        run: npm run preview &
+
+      - name: Wait for server to be ready
+        run: |
+          echo "Waiting for server..."
+          for i in $(seq 1 20); do
+            curl -sf http://localhost:4173/ && break
+            sleep 1
+          done
+
+      - name: Record video
+        run: node scripts/record-video.mjs
+
+      - name: Install ffmpeg
+        run: sudo apt-get install -y ffmpeg
+
+      - name: Convert WebM to MP4
+        run: |
+          ffmpeg -i output/youtube-short.webm \
+            -c:v libx264 -preset fast -crf 20 \
+            -pix_fmt yuv420p \
+            -movflags +faststart \
+            output/youtube-short.mp4
+          echo "MP4 size: $(du -sh output/youtube-short.mp4 | cut -f1)"
+
+      - name: Upload MP4 artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: youtube-short-mp4
+          path: output/youtube-short.mp4
+          retention-days: 30
+
+      - name: Upload WebM artifact (backup)
+        uses: actions/upload-artifact@v4
+        with:
+          name: youtube-short-webm
+          path: output/youtube-short.webm
+          retention-days: 7
