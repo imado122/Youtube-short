@@ -1,33 +1,31 @@
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700;900&family=Space+Grotesk:wght@300;400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant:wght@400;600;700&family=Montserrat:wght@300;400;600&family=Noto+Naskh+Arabic&display=swap');
 @import "tailwindcss";
 
 :root {
-  --color-primary: #00f0ff;
-  --color-secondary: #1a1a2e;
-  --color-accent: #ff003c;
+  --color-primary: #E8C97A;
+  --color-secondary: #0C0A09;
+  --color-accent: #CA8A04;
+  --color-deep: #A16207;
 
-  --color-bg-light: #ffffff;
-  --color-bg-dark: #050505;
-  --color-bg-muted: #111111;
+  --color-bg-light: #1C1917;
+  --color-bg-dark: #0C0A09;
+  --color-bg-muted: #1C1917;
 
-  --color-text-primary: #ffffff;
-  --color-text-secondary: #a0a0a0;
-  --color-text-muted: #555555;
-  --color-text-inverse: #000000;
+  --color-text-primary: #FAFAF9;
+  --color-text-secondary: #E8C97A;
+  --color-text-muted: #A8A29E;
+  --color-text-inverse: #0C0A09;
 
-  --color-success: #10B981;
-  --color-warning: #F59E0B;
-  --color-error: #EF4444;
-
-  --font-display: 'Outfit', sans-serif;
-  --font-body: 'Space Grotesk', sans-serif;
-  --font-mono: 'JetBrains Mono', monospace;
+  --font-display: 'Cormorant', serif;
+  --font-body: 'Montserrat', sans-serif;
+  --font-arabic: 'Noto Naskh Arabic', serif;
 }
 
 @theme inline {
   --color-primary: var(--color-primary);
   --color-secondary: var(--color-secondary);
   --color-accent: var(--color-accent);
+  --color-deep: var(--color-deep);
   --color-bg-light: var(--color-bg-light);
   --color-bg-dark: var(--color-bg-dark);
   --color-bg-muted: var(--color-bg-muted);
@@ -35,12 +33,9 @@
   --color-text-secondary: var(--color-text-secondary);
   --color-text-muted: var(--color-text-muted);
   --color-text-inverse: var(--color-text-inverse);
-  --color-success: var(--color-success);
-  --color-warning: var(--color-warning);
-  --color-error: var(--color-error);
   --font-display: var(--font-display);
   --font-body: var(--font-body);
-  --font-mono: var(--font-mono);
+  --font-arabic: var(--font-arabic);
 }
 
 body {
@@ -51,17 +46,10 @@ body {
   color: var(--color-text-primary);
 }
 
-.text-outline {
-  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.2);
-  color: transparent;
+.font-display {
+  font-family: var(--font-display);
 }
 
-.text-outline-accent {
-  -webkit-text-stroke: 1px var(--color-accent);
-  color: transparent;
-}
-
-.text-outline-primary {
-  -webkit-text-stroke: 1px var(--color-primary);
-  color: transparent;
+.font-arabic {
+  font-family: var(--font-arabic);
 }
