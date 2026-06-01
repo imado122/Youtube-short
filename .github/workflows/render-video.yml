@@ -18,9 +18,13 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "20"
+          cache: "npm"
 
       - name: Use standalone package.json
         run: cp package.standalone.json package.json
+
+      - name: Install ffmpeg (early — ready before recording)
+        run: sudo apt-get install -y ffmpeg
 
       - name: Install dependencies
         run: npm install --legacy-peer-deps
@@ -45,17 +49,16 @@ jobs:
       - name: Record video
         run: node scripts/record-video.mjs
 
-      - name: Install ffmpeg
-        run: sudo apt-get install -y ffmpeg
-
-      - name: Convert WebM to MP4
+      - name: Convert WebM to MP4 (optimized for size)
         run: |
           ffmpeg -i output/youtube-short.webm \
-            -c:v libx264 -preset fast -crf 20 \
+            -c:v libx264 -preset medium -crf 20 \
             -pix_fmt yuv420p \
             -movflags +faststart \
+            -threads 0 \
             output/youtube-short.mp4
           echo "MP4 size: $(du -sh output/youtube-short.mp4 | cut -f1)"
+          echo "WebM size: $(du -sh output/youtube-short.webm | cut -f1)"
 
       - name: Upload MP4 artifact
         uses: actions/upload-artifact@v4
