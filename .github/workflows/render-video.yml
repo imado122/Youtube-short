@@ -14,16 +14,16 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Set up Node.js 20
+      - name: Set up Node.js 24
         uses: actions/setup-node@v4
         with:
-          node-version: "20"
+          node-version: "24"
 
       - name: Use standalone package.json
         run: cp package.standalone.json package.json
 
       - name: Install ffmpeg (early — ready before recording)
-        run: sudo apt-get install -y ffmpeg
+        run: sudo apt-get update && sudo apt-get install -y --fix-missing ffmpeg
 
       - name: Install dependencies
         run: npm install --legacy-peer-deps
