@@ -2,6 +2,15 @@ name: Render YouTube Short as MP4
 
 on:
   workflow_dispatch:
+    inputs:
+      publish_to_youtube:
+        description: "Publish to YouTube? (uses API quota — choose wisely)"
+        required: true
+        type: choice
+        default: "no"
+        options:
+          - "yes — publish now"
+          - "no — render only"
   push:
     branches: [main]
 
@@ -72,3 +81,20 @@ jobs:
           name: youtube-short-webm
           path: output/youtube-short.webm
           retention-days: 7
+
+      - name: Publish to YouTube Shorts
+        if: ${{ github.event_name == 'workflow_dispatch' && startsWith(inputs.publish_to_youtube, 'yes') }}
+        env:
+          YOUTUBE_CLIENT_ID: ${{ secrets.YOUTUBE_CLIENT_ID }}
+          YOUTUBE_CLIENT_SECRET: ${{ secrets.YOUTUBE_CLIENT_SECRET }}
+          YOUTUBE_REFRESH_TOKEN: ${{ secrets.YOUTUBE_REFRESH_TOKEN }}
+          VIDEO_TITLE: "Al Nasme — The Art of Travel | النسمة للحقائب الفاخرة"
+          VIDEO_DESCRIPTION: |
+            ✈️ Discover Al Nasme's premium luggage collection — crafted for those who travel in style.
+
+            🧳 Timeless designs. Unmatched quality. Built for every journey.
+
+            🛒 Shop now: [your link here]
+
+            #AlNasme #LuggageCollection #TravelInStyle #النسمة #حقائب_سفر #حقائب_فاخرة #Shorts
+        run: node scripts/upload-youtube.mjs
