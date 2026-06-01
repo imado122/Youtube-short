@@ -1,0 +1,36 @@
+{
+  "name": "al-nasme-youtube-short",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --config vite.config.ci.ts",
+    "build": "vite build --config vite.config.ci.ts",
+    "preview": "vite preview --config vite.config.ci.ts",
+    "record": "node scripts/record-video.mjs"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@react-spring/web": "^10.0.3",
+    "@react-three/drei": "^10.0.0",
+    "@react-three/fiber": "^9.5.0",
+    "@tailwindcss/vite": "^4.1.8",
+    "@types/node": "^22.15.0",
+    "@types/react": "^18.3.23",
+    "@types/react-dom": "^18.3.7",
+    "@vitejs/plugin-react": "^4.5.2",
+    "clsx": "^2.1.1",
+    "framer-motion": "^12.18.0",
+    "gsap": "^3.14.2",
+    "lucide-react": "^0.513.0",
+    "playwright": "^1.52.0",
+    "tailwind-merge": "^3.2.0",
+    "tailwindcss": "^4.1.8",
+    "three": "^0.182.0",
+    "typescript": "~5.9.3",
+    "vite": "^7.3.3"
+  }
+}
