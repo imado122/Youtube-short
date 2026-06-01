@@ -8,14 +8,31 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const CLIENT_ID     = process.env.YOUTUBE_CLIENT_ID;
 const CLIENT_SECRET = process.env.YOUTUBE_CLIENT_SECRET;
 const REFRESH_TOKEN = process.env.YOUTUBE_REFRESH_TOKEN;
-const TITLE        = process.env.VIDEO_TITLE       || "Al Nasme — The Art of Travel | النسمة للحقائب الفاخرة";
-const DESCRIPTION  = process.env.VIDEO_DESCRIPTION || `✈️ Discover Al Nasme's premium luggage collection — crafted for those who travel in style.
+const TITLE        = process.env.VIDEO_TITLE       || "🧳 حقائب النسمة — سافر بأسلوب | Al Nasme Premium Luggage";
+const DESCRIPTION  = process.env.VIDEO_DESCRIPTION || `🧳 هل تبحث عن حقائب سفر فاخرة تدوم طويلاً؟
 
-🧳 Timeless designs. Unmatched quality. Built for every journey.
+النسمة — الخيار الأول للمسافر العصري منذ عام ١٩٨٥
 
-🛒 Shop now: [your link here]
+✅ وزن خفيف للغاية — تقنية الغلاف السيليكون
+✅ متينة لا تُكسر — تتحمل كل الرحلات
+✅ معتمدة دولياً — TSA approved
+✅ قفل أمان مدمج — راحة بالك في كل مكان
+✅ ٤٠ عاماً من الحرفية السورية الأصيلة
 
-#AlNasme #LuggageCollection #TravelInStyle #النسمة #حقائب_سفر #حقائب_فاخرة #Shorts`;
+🌐 تسوق الآن: https://alnasme.shamsaver1.workers.dev/#process
+📱 اطلب عبر واتساب مباشرة
+
+---
+
+Looking for luggage that actually lasts?
+
+Al Nasme — premium luggage crafted in Damascus since 1985.
+Built for travelers who refuse to compromise on quality.
+
+🛒 Shop the collection: https://alnasme.shamsaver1.workers.dev/#process
+
+#AlNasme #النسمة #LuggageCollection #حقائب_سفر #TravelInStyle
+#PremiumLuggage #حقائب_فاخرة #سفر #Shorts #Travel #Damascus`;
 
 const VIDEO_PATH = resolve(__dirname, "../output/youtube-short.mp4");
 
@@ -44,8 +61,8 @@ async function uploadVideo(accessToken) {
     snippet: {
       title: TITLE,
       description: DESCRIPTION,
-      tags: ["AlNasme", "Luggage", "Travel", "النسمة", "حقائب_سفر", "Shorts"],
-      categoryId: "26", // Howto & Style
+      tags: ["AlNasme","النسمة","LuggageCollection","حقائب_سفر","TravelInStyle","PremiumLuggage","Shorts","Travel","Damascus","Syria"],
+      categoryId: "26",
       defaultLanguage: "ar",
     },
     status: {
@@ -54,7 +71,6 @@ async function uploadVideo(accessToken) {
     },
   };
 
-  // Step 1: Initiate resumable upload session
   const initRes = await fetch(
     "https://www.googleapis.com/upload/youtube/v3/videos?uploadType=resumable&part=snippet,status",
     {
@@ -77,7 +93,6 @@ async function uploadVideo(accessToken) {
   const uploadUrl = initRes.headers.get("location");
   console.log("📡 Upload session started");
 
-  // Step 2: Upload file in one chunk (resumable protocol)
   const fileStream = createReadStream(VIDEO_PATH);
   const chunks = [];
   for await (const chunk of fileStream) chunks.push(chunk);
@@ -85,10 +100,7 @@ async function uploadVideo(accessToken) {
 
   const uploadRes = await fetch(uploadUrl, {
     method: "PUT",
-    headers: {
-      "Content-Type": "video/mp4",
-      "Content-Length": String(fileSize),
-    },
+    headers: { "Content-Type": "video/mp4", "Content-Length": String(fileSize) },
     body: fileBuffer,
   });
 
@@ -105,7 +117,7 @@ async function uploadVideo(accessToken) {
 
 async function main() {
   if (!CLIENT_ID || !CLIENT_SECRET || !REFRESH_TOKEN) {
-    console.error("❌ Missing YouTube credentials. Set YOUTUBE_CLIENT_ID, YOUTUBE_CLIENT_SECRET, YOUTUBE_REFRESH_TOKEN in GitHub Secrets.");
+    console.error("❌ Missing YouTube credentials.");
     process.exit(1);
   }
   const token = await getAccessToken();
