@@ -43,61 +43,28 @@ export default function VideoTemplate({
   const SceneComponent = SCENE_COMPONENTS[baseSceneKey];
 
   return (
-    <div className="w-full h-screen overflow-hidden relative bg-black text-white font-body selection:bg-accent selection:text-white">
+    <div className="w-full h-screen overflow-hidden relative bg-[var(--color-bg-dark)] text-white font-body selection:bg-[var(--color-primary)] selection:text-[var(--color-bg-dark)]">
       {/* Persistent Background Layer */}
       <motion.div
-        className="absolute inset-0 bg-cover bg-center opacity-40 mix-blend-screen"
-        style={{ backgroundImage: `url(${import.meta.env.BASE_URL}images/bg-texture.png)` }}
+        className="absolute inset-0 bg-cover bg-center opacity-30"
+        style={{ backgroundImage: `url(${import.meta.env.BASE_URL}images/bg-luxury.png)` }}
         animate={{
-          scale: [1, 1.2, 1.1, 1.3, 1.05][sceneIndex] ?? 1,
-          rotate: [0, 5, -5, 10, 0][sceneIndex] ?? 0,
+          scale: [1, 1.05, 1.1, 1.05, 1][sceneIndex] ?? 1,
+          rotate: [0, 2, -2, 1, 0][sceneIndex] ?? 0,
         }}
-        transition={{ duration: 3, ease: 'easeInOut' }}
+        transition={{ duration: 8, ease: 'easeInOut' }}
       />
-
-      <div className="absolute inset-0 pointer-events-none">
-        <motion.div
-          className="absolute w-[80vw] h-[80vw] rounded-full blur-[100px] opacity-20"
-          style={{ background: 'radial-gradient(circle, var(--color-primary), transparent)' }}
-          animate={{
-            x: ['-20%', '50%', '-10%', '30%', '-20%'][sceneIndex] ?? '-20%',
-            y: ['-10%', '30%', '50%', '-20%', '-10%'][sceneIndex] ?? '-10%',
-            scale: [1, 1.5, 0.8, 1.2, 1][sceneIndex] ?? 1,
-          }}
-          transition={{ duration: 4, ease: 'easeInOut' }}
-        />
-        <motion.div
-          className="absolute w-[60vw] h-[60vw] rounded-full blur-[80px] opacity-15"
-          style={{ background: 'radial-gradient(circle, var(--color-accent), transparent)' }}
-          animate={{
-            x: ['40%', '-10%', '60%', '-30%', '40%'][sceneIndex] ?? '40%',
-            y: ['40%', '60%', '-10%', '50%', '40%'][sceneIndex] ?? '40%',
-            scale: [1.2, 0.9, 1.4, 0.8, 1.2][sceneIndex] ?? 1.2,
-          }}
-          transition={{ duration: 5, ease: 'easeInOut' }}
-        />
-      </div>
-
-      {/* Persistent Grid Element */}
-      <motion.div
-        className="absolute inset-0 bg-cover bg-center mix-blend-overlay pointer-events-none"
-        style={{ backgroundImage: `url(${import.meta.env.BASE_URL}images/bg-grid.png)` }}
-        animate={{
-          opacity: sceneIndex === 3 ? 0.6 : 0,
-          scale: sceneIndex === 3 ? 1 : 1.5,
-          y: sceneIndex === 3 ? '0%' : '10%',
-        }}
-        transition={{ duration: 2, ease: [0.16, 1, 0.3, 1] }}
-      />
+      
+      <div className="absolute inset-0 bg-black/40 mix-blend-multiply pointer-events-none" />
 
       {/* Persistent Animated Accents */}
       <motion.div
-        className="absolute h-[2px] bg-[var(--color-primary)] z-10 pointer-events-none"
+        className="absolute h-[1px] bg-[var(--color-primary)] z-10 pointer-events-none"
         animate={{
-          left: ['0%', '20%', '80%', '10%', '50%'][sceneIndex] ?? '0%',
-          width: ['100%', '40%', '10%', '80%', '0%'][sceneIndex] ?? '100%',
-          top: ['50%', '80%', '20%', '60%', '50%'][sceneIndex] ?? '50%',
-          opacity: sceneIndex === 4 ? 0 : 0.8,
+          left: ['0%', '10%', '70%', '10%', '20%'][sceneIndex] ?? '0%',
+          width: ['0%', '30%', '15%', '50%', '60%'][sceneIndex] ?? '0%',
+          top: ['15%', '85%', '25%', '65%', '50%'][sceneIndex] ?? '50%',
+          opacity: sceneIndex === 0 || sceneIndex === 4 ? 0 : 0.4,
         }}
         transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1] }}
       />
