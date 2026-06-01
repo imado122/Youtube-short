@@ -6,52 +6,91 @@ export function Scene2() {
 
   useEffect(() => {
     const timers = [
-      setTimeout(() => setPhase(1), 200),
-      setTimeout(() => setPhase(2), 1000),
-      setTimeout(() => setPhase(3), 2500),
-      setTimeout(() => setPhase(4), 4000),
-      setTimeout(() => setPhase(5), 7000), // exit
+      setTimeout(() => setPhase(1), 500),
+      setTimeout(() => setPhase(2), 1500),
+      setTimeout(() => setPhase(3), 3000),
+      setTimeout(() => setPhase(4), 4500),
+      setTimeout(() => setPhase(5), 6500), // exit
     ];
     return () => timers.forEach(t => clearTimeout(t));
   }, []);
 
-  const words = ["WE", "BUILD", "WORLDS"];
-
   return (
     <motion.div 
-      className="absolute inset-0 flex items-center px-[10vw]"
-      initial={{ x: '100%' }}
-      animate={{ x: '0%' }}
-      exit={{ x: '-100%' }}
-      transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+      className="absolute inset-0 flex flex-col items-center justify-center bg-[var(--color-bg-dark)] overflow-hidden"
+      initial={{ opacity: 0, scale: 0.9 }}
+      animate={{ opacity: 1, scale: 1 }}
+      exit={{ opacity: 0, x: '-10%' }}
+      transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
     >
-      <div className="w-full flex flex-col gap-4 z-10">
-        {words.map((word, i) => (
-          <div key={i} className="overflow-hidden">
-            <motion.div
-              className={`text-[9vw] font-display font-black uppercase leading-none ${i === 1 ? 'text-[var(--color-accent)]' : 'text-white'}`}
-              initial={{ y: '100%', rotateZ: 10, opacity: 0 }}
-              animate={phase >= i + 1 ? { y: '0%', rotateZ: 0, opacity: 1 } : { y: '100%', rotateZ: 10, opacity: 0 }}
-              transition={{ type: 'spring', stiffness: 100, damping: 15 }}
-            >
-              {word}
-            </motion.div>
-          </div>
-        ))}
+      <div className="absolute inset-0 z-0">
+        <motion.img 
+          src={`${import.meta.env.BASE_URL}images/damascus-bg.png`}
+          className="absolute inset-0 w-full h-full object-cover opacity-40 mix-blend-luminosity"
+          initial={{ scale: 1.1, x: '5%' }}
+          animate={{
+            scale: phase >= 5 ? 1.2 : 1,
+            x: phase >= 5 ? '-5%' : '0%'
+          }}
+          transition={{ duration: 8, ease: 'easeOut' }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-[var(--color-bg-dark)] via-[var(--color-bg-dark)]/80 to-transparent w-[70%]" />
       </div>
 
-      <motion.div 
-        className="absolute right-[5vw] top-1/2 -translate-y-1/2 w-[40vw] h-[40vw] border-[1px] border-[var(--color-primary)] rounded-full mix-blend-screen"
-        initial={{ scale: 0, opacity: 0 }}
-        animate={{ scale: phase >= 4 ? 1 : 0, opacity: phase >= 4 ? 0.4 : 0 }}
-        transition={{ duration: 2, ease: "easeOut" }}
-      >
-        <motion.div 
-          className="absolute inset-0 border-[2px] border-[var(--color-accent)] rounded-full border-dashed"
-          animate={{ rotate: 360 }}
-          transition={{ duration: 10, repeat: Infinity, ease: 'linear' }}
+      <div className="absolute left-[10vw] top-[20vh] z-10 flex flex-col items-start text-left max-w-[50vw]">
+        <motion.div
+          className="h-[1px] bg-[var(--color-primary)] mb-6"
+          initial={{ width: 0 }}
+          animate={{ width: phase >= 1 ? '10vw' : 0 }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         />
-      </motion.div>
+        
+        <div className="overflow-hidden">
+          <motion.h2 
+            className="text-[8vw] font-display font-bold text-[var(--color-primary)] leading-tight"
+            initial={{ y: '100%', rotate: 5 }}
+            animate={{ y: phase >= 2 ? '0%' : '100%', rotate: phase >= 2 ? 0 : 5 }}
+            transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+          >
+            Since 1985
+          </motion.h2>
+        </div>
+        
+        <div className="overflow-hidden mt-6">
+          <motion.p 
+            className="text-[2.5vw] font-body font-light text-[var(--color-text-primary)]"
+            initial={{ y: '100%', opacity: 0 }}
+            animate={{ y: phase >= 3 ? '0%' : '100%', opacity: phase >= 3 ? 1 : 0 }}
+            transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+          >
+            40 years of Syrian craft
+          </motion.p>
+        </div>
+        
+        <div className="overflow-hidden mt-2">
+          <motion.p 
+            className="text-[3vw] font-arabic text-[var(--color-text-muted)]"
+            initial={{ y: '100%', opacity: 0 }}
+            animate={{ y: phase >= 4 ? '0%' : '100%', opacity: phase >= 4 ? 1 : 0 }}
+            transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+          >
+            ٤٠ عاماً من الحرفية السورية
+          </motion.p>
+        </div>
+      </div>
+
+      <motion.img
+        src={`${import.meta.env.BASE_URL}images/suitcase-single.png`}
+        className="absolute right-[5vw] top-[10vh] h-[80vh] w-auto object-contain drop-shadow-[0_0_30px_rgba(0,0,0,0.8)] z-20"
+        initial={{ opacity: 0, x: '20vw', rotateY: -30 }}
+        animate={{ 
+          opacity: phase >= 2 ? 1 : 0, 
+          x: phase >= 2 ? 0 : '20vw',
+          rotateY: phase >= 2 ? 0 : -30,
+          y: phase >= 5 ? '-5vh' : '0vh'
+        }}
+        transition={{ duration: 1.5, type: 'spring', stiffness: 50, damping: 20 }}
+      />
     </motion.div>
   );
 }
