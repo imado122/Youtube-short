@@ -2,127 +2,85 @@ import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 
 const FEATURES = [
-  {
-    icon: '⚡',
-    title: 'ULTRA-LIGHT',
-    titleAr: 'وزن خفيف',
-    desc: 'Silicon shell tech — half the weight',
-    color: '#E8C97A',
-  },
-  {
-    icon: '🛡️',
-    title: 'INDESTRUCTIBLE',
-    titleAr: 'لا تُكسر',
-    desc: 'Built to survive every conveyor belt',
-    color: '#E8C97A',
-  },
-  {
-    icon: '✈️',
-    title: 'TSA APPROVED',
-    titleAr: 'معتمدة دولياً',
-    desc: '4 spinner wheels · 360° smooth roll',
-    color: '#E8C97A',
-  },
-  {
-    icon: '🔒',
-    title: 'SECURE LOCK',
-    titleAr: 'قفل آمن',
-    desc: 'Combination TSA-approved lock built-in',
-    color: '#E8C97A',
-  },
+  { icon: '⚡', en: 'ULTRA-LIGHT', ar: 'وزن خفيف جداً', desc: 'Silicon shell — half the weight of standard luggage' },
+  { icon: '🛡️', en: 'UNBREAKABLE', ar: 'لا تُكسر أبداً', desc: 'Survives every conveyor belt & airport handler' },
+  { icon: '✈️', en: 'TSA APPROVED', ar: 'معتمدة دولياً', desc: '360° spinner wheels · smooth on any surface' },
+  { icon: '🔒', en: 'SECURE LOCK', ar: 'قفل آمن مدمج', desc: 'Built-in combination lock · peace of mind' },
 ];
 
 export function Scene4() {
   const [phase, setPhase] = useState(0);
   useEffect(() => {
     const t = [
-      setTimeout(() => setPhase(1), 300),
-      setTimeout(() => setPhase(2), 800),
-      setTimeout(() => setPhase(3), 1600),
-      setTimeout(() => setPhase(4), 2400),
-      setTimeout(() => setPhase(5), 3200),
-      setTimeout(() => setPhase(6), 4200),
+      setTimeout(() => setPhase(1), 200),
+      setTimeout(() => setPhase(2), 700),
+      setTimeout(() => setPhase(3), 1300),
+      setTimeout(() => setPhase(4), 1900),
+      setTimeout(() => setPhase(5), 2500),
     ];
     return () => t.forEach(clearTimeout);
   }, []);
 
   return (
     <motion.div
-      className="absolute inset-0 overflow-hidden bg-[#0A0A0A]"
-      initial={{ opacity: 0, y: '3%' }}
-      animate={{ opacity: 1, y: '0%' }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+      data-scene="4"
+      className="absolute inset-0 overflow-hidden flex flex-col bg-[#0A0A0A]"
+      initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+      transition={{ duration: 0.5 }}
     >
-      {/* Luggage image faded bg */}
+      {/* Faded luggage bg */}
       <motion.div
-        className="absolute right-0 top-0 bottom-0 w-[40vw] opacity-15"
+        className="absolute right-0 bottom-0 w-[50vw] h-[50vh] opacity-8"
         style={{
           backgroundImage: `url(${import.meta.env.BASE_URL}images/luggage-hero.png)`,
           backgroundSize: 'cover',
-          backgroundPosition: 'left center',
+          backgroundPosition: 'left top',
+          opacity: 0.08,
         }}
       />
-      <div className="absolute right-0 top-0 bottom-0 w-[50vw] bg-gradient-to-r from-[#0A0A0A] to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-b from-[#0A0A0A] via-transparent to-[#0A0A0A]" />
 
       {/* Header */}
       <motion.div
-        className="absolute top-[5vh] left-[8vw]"
-        initial={{ opacity: 0, x: -20 }}
-        animate={{ opacity: phase >= 1 ? 1 : 0, x: phase >= 1 ? 0 : -20 }}
-        transition={{ duration: 0.7 }}
-      >
-        <div className="text-[1.6vw] font-body tracking-[0.5em] text-[#E8C97A]/60 uppercase mb-1">What sets us apart</div>
-        <div className="text-[2vw] font-arabic text-white/40">ما يميزنا</div>
+        className="z-10 flex flex-col items-center pt-[7vh] pb-[3vh]"
+        initial={{ opacity: 0, y: -10 }} animate={{ opacity: phase >= 1 ? 1 : 0, y: 0 }}
+        transition={{ duration: 0.5 }}>
+        <div className="text-[3.5vw] font-body tracking-[0.5em] text-[#E8C97A]/60 uppercase">What sets us apart</div>
+        <div className="text-[4.5vw] font-arabic text-white/40 mt-[0.5vh]">ما يميزنا</div>
+        <div className="h-[1px] w-[20vw] bg-[#E8C97A]/30 mt-[2vh]" />
       </motion.div>
 
-      {/* Feature cards grid */}
-      <div className="absolute inset-0 flex items-center px-[8vw] pt-[12vh]">
-        <div className="grid grid-cols-2 gap-[2vw] w-full">
-          {FEATURES.map((f, i) => (
-            <motion.div
-              key={i}
-              className="relative overflow-hidden rounded-[1vw] p-[2.5vw]"
-              style={{
-                background: 'linear-gradient(135deg, rgba(232,201,122,0.06) 0%, rgba(255,255,255,0.02) 100%)',
-                border: '1px solid rgba(232,201,122,0.15)',
-              }}
-              initial={{ opacity: 0, y: 30, scale: 0.95 }}
-              animate={{
-                opacity: phase >= 2 + i * 0.8 ? 1 : 0,
-                y: phase >= 2 + i * 0.8 ? 0 : 30,
-                scale: phase >= 2 + i * 0.8 ? 1 : 0.95,
-              }}
-              transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-            >
-              {/* Hover shimmer */}
-              <motion.div
-                className="absolute inset-0 opacity-0"
-                style={{ background: 'linear-gradient(135deg, rgba(232,201,122,0.08) 0%, transparent 100%)' }}
-                animate={{ opacity: [0, 0.6, 0] }}
-                transition={{ duration: 2, delay: 2 + i * 0.3, repeat: Infinity, repeatDelay: 3 }}
-              />
-
-              <div className="text-[3.5vw] mb-[1vw]">{f.icon}</div>
-              <div className="text-[2.8vw] font-display font-bold text-[#E8C97A] leading-none mb-1 tracking-wide">
-                {f.title}
-              </div>
-              <div className="text-[1.8vw] font-arabic text-white/50 mb-[1vw]">{f.titleAr}</div>
-              <div className="h-[1px] bg-[#E8C97A]/20 mb-[1vw] w-[60%]" />
-              <div className="text-[1.6vw] font-body font-light text-white/60 leading-relaxed">{f.desc}</div>
-            </motion.div>
-          ))}
-        </div>
+      {/* Feature list */}
+      <div className="z-10 flex-1 flex flex-col justify-center px-[6vw] gap-[2vh]">
+        {FEATURES.map((f, i) => (
+          <motion.div
+            key={i}
+            className="flex items-center gap-[4vw] px-[4vw] py-[2.5vh] rounded-[2.5vw]"
+            style={{
+              background: 'linear-gradient(90deg, rgba(232,201,122,0.07) 0%, rgba(255,255,255,0.01) 100%)',
+              border: '1px solid rgba(232,201,122,0.15)',
+            }}
+            initial={{ opacity: 0, x: i % 2 === 0 ? -40 : 40 }}
+            animate={{ opacity: phase >= 2 + i ? 1 : 0, x: phase >= 2 + i ? 0 : (i % 2 === 0 ? -40 : 40) }}
+            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          >
+            {/* Shimmer on mount */}
+            <div className="text-[8vw] flex-shrink-0">{f.icon}</div>
+            <div className="flex flex-col flex-1">
+              <div className="text-[5vw] font-display font-bold text-[#E8C97A] leading-tight tracking-wide">{f.en}</div>
+              <div className="text-[3.8vw] font-arabic text-white/55 leading-none">{f.ar}</div>
+              <div className="text-[2.8vw] font-body font-light text-white/40 leading-snug mt-[0.5vh]">{f.desc}</div>
+            </div>
+          </motion.div>
+        ))}
       </div>
 
-      {/* Bottom website teaser */}
+      {/* Website teaser at bottom */}
       <motion.div
-        className="absolute bottom-[4vh] left-0 right-0 flex justify-center"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: phase >= 6 ? 1 : 0 }}
-        transition={{ duration: 1 }}
-      >
-        <span className="text-[1.6vw] font-body tracking-[0.3em] text-[#E8C97A]/50 uppercase">
+        className="z-10 flex justify-center pb-[5vh]"
+        initial={{ opacity: 0 }} animate={{ opacity: phase >= 5 ? 1 : 0 }}
+        transition={{ duration: 0.8 }}>
+        <span className="text-[2.8vw] font-body tracking-[0.25em] text-[#E8C97A]/50 uppercase">
           alnasme.shamsaver1.workers.dev
         </span>
       </motion.div>
