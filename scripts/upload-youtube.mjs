@@ -8,31 +8,18 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const CLIENT_ID     = process.env.YOUTUBE_CLIENT_ID;
 const CLIENT_SECRET = process.env.YOUTUBE_CLIENT_SECRET;
 const REFRESH_TOKEN = process.env.YOUTUBE_REFRESH_TOKEN;
-const TITLE        = process.env.VIDEO_TITLE       || "🧳 حقائب النسمة — سافر بأسلوب | Al Nasme Premium Luggage";
-const DESCRIPTION  = process.env.VIDEO_DESCRIPTION || `🧳 هل تبحث عن حقائب سفر فاخرة تدوم طويلاً؟
 
-النسمة — الخيار الأول للمسافر العصري منذ عام ١٩٨٥
+const TITLE = process.env.VIDEO_TITLE
+  || "🧳 Discover Al Nasme's Premium Luggage | النسمة للحقائب الفاخرة #Shorts";
 
-✅ وزن خفيف للغاية — تقنية الغلاف السيليكون
-✅ متينة لا تُكسر — تتحمل كل الرحلات
-✅ معتمدة دولياً — TSA approved
-✅ قفل أمان مدمج — راحة بالك في كل مكان
-✅ ٤٠ عاماً من الحرفية السورية الأصيلة
+const DESCRIPTION = process.env.VIDEO_DESCRIPTION
+  || `Discover Al Nasme's premium luggage collection — crafted for those who travel in style.
 
-🌐 تسوق الآن: https://alnasme.shamsaver1.workers.dev/#process
-📱 اطلب عبر واتساب مباشرة
+🧳 Timeless designs. Unmatched quality. Built for every journey.
 
----
+🛒 Shop now: https://alnasme.shamsaver1.workers.dev/#process
 
-Looking for luggage that actually lasts?
-
-Al Nasme — premium luggage crafted in Damascus since 1985.
-Built for travelers who refuse to compromise on quality.
-
-🛒 Shop the collection: https://alnasme.shamsaver1.workers.dev/#process
-
-#AlNasme #النسمة #LuggageCollection #حقائب_سفر #TravelInStyle
-#PremiumLuggage #حقائب_فاخرة #سفر #Shorts #Travel #Damascus`;
+#AlNasme #LuggageCollection #TravelInStyle #النسمة #حقائب_سفر #حقائب_فاخرة #Shorts`;
 
 const VIDEO_PATH = resolve(__dirname, "../output/youtube-short.mp4");
 
@@ -61,7 +48,7 @@ async function uploadVideo(accessToken) {
     snippet: {
       title: TITLE,
       description: DESCRIPTION,
-      tags: ["AlNasme","النسمة","LuggageCollection","حقائب_سفر","TravelInStyle","PremiumLuggage","Shorts","Travel","Damascus","Syria"],
+      tags: ["AlNasme","النسمة","LuggageCollection","حقائب_سفر","TravelInStyle","PremiumLuggage","Shorts","Travel"],
       categoryId: "26",
       defaultLanguage: "ar",
     },
