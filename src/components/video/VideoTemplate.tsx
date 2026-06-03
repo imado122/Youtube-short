@@ -9,15 +9,15 @@ import { Scene4 } from './video_scenes/Scene4';
 import { Scene5 } from './video_scenes/Scene5';
 
 export const SCENE_DURATIONS: Record<string, number> = {
-  open:     8000,
+  hook:     7000,
   product:  8000,
-  heritage: 10000,
-  features: 10000,
-  cta:      9000,
+  heritage: 9000,
+  features: 9000,
+  cta:      7000,
 };
 
 const SCENE_COMPONENTS: Record<string, React.ComponentType> = {
-  open:     Scene1,
+  hook:     Scene1,
   product:  Scene2,
   heritage: Scene3,
   features: Scene4,
@@ -44,7 +44,6 @@ export default function VideoTemplate({
   return (
     <div className="w-full h-screen overflow-hidden relative bg-black text-white font-body">
       <AudioPlayer />
-
       <AnimatePresence mode="popLayout">
         {SceneComponent && <SceneComponent key={currentSceneKey} />}
       </AnimatePresence>
