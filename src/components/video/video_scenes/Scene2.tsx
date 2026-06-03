@@ -5,145 +5,102 @@ export function Scene2() {
   const [phase, setPhase] = useState(0);
   useEffect(() => {
     const t = [
-      setTimeout(() => setPhase(1), 400),
-      setTimeout(() => setPhase(2), 1000),
-      setTimeout(() => setPhase(3), 2200),
-      setTimeout(() => setPhase(4), 3600),
-      setTimeout(() => setPhase(5), 5500),
-      setTimeout(() => setPhase(6), 7200),
+      setTimeout(() => setPhase(1), 200),
+      setTimeout(() => setPhase(2), 800),
+      setTimeout(() => setPhase(3), 1800),
+      setTimeout(() => setPhase(4), 3000),
+      setTimeout(() => setPhase(5), 4800),
     ];
     return () => t.forEach(clearTimeout);
   }, []);
 
   return (
     <motion.div
-      className="absolute inset-0 overflow-hidden bg-[#0A0A0A]"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0, x: '-5%' }}
-      transition={{ duration: 0.8 }}
+      data-scene="2"
+      className="absolute inset-0 bg-[#080604] overflow-hidden flex flex-col items-center"
+      initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+      transition={{ duration: 0.5 }}
     >
-      {/* Dark radial gradient backdrop */}
-      <div
-        className="absolute inset-0"
-        style={{ background: 'radial-gradient(ellipse at 60% 50%, #1a1208 0%, #0A0A0A 65%)' }}
-      />
-
-      {/* Airport bg image, blurred */}
+      {/* Subtle grid bg */}
       <motion.div
         className="absolute inset-0 opacity-10"
         style={{
-          backgroundImage: `url(https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=1280&q=60)`,
+          backgroundImage: `url(${import.meta.env.BASE_URL}images/bg-grid.png)`,
           backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          filter: 'blur(4px)',
         }}
       />
+      <div
+        className="absolute inset-0"
+        style={{ background: 'radial-gradient(ellipse at 50% 40%, rgba(232,201,122,0.10) 0%, transparent 65%)' }}
+      />
 
-      {/* Gold glow behind suitcase */}
+      {/* Top brand name */}
       <motion.div
-        className="absolute right-[8vw] top-[10vh] w-[50vw] h-[80vh] rounded-full pointer-events-none"
-        style={{ background: 'radial-gradient(ellipse, rgba(232,201,122,0.12) 0%, transparent 70%)' }}
-        initial={{ opacity: 0, scale: 0.6 }}
-        animate={{ opacity: phase >= 1 ? 1 : 0, scale: phase >= 1 ? 1 : 0.6 }}
-        transition={{ duration: 1.5 }}
-      />
+        className="relative z-10 mt-[8vh] flex flex-col items-center"
+        initial={{ opacity: 0, y: -20 }} animate={{ opacity: phase >= 1 ? 1 : 0, y: 0 }}
+        transition={{ duration: 0.7 }}
+      >
+        <div className="text-[3.5vw] font-body tracking-[0.6em] text-[#E8C97A]/60 uppercase mb-1">Premium Collection</div>
+        <div className="h-[1px] w-[25vw] bg-[#E8C97A]/30 my-[1.5vh]" />
+      </motion.div>
 
-      {/* Suitcase hero */}
-      <motion.img
-        src={`${import.meta.env.BASE_URL}images/suitcase-single.png`}
-        className="absolute right-[5vw] top-[8vh] h-[82vh] w-auto object-contain z-20"
-        style={{ filter: 'drop-shadow(0 0 40px rgba(232,201,122,0.25)) drop-shadow(0 20px 60px rgba(0,0,0,0.8))' }}
-        initial={{ opacity: 0, x: '15vw', scale: 0.85 }}
-        animate={{
-          opacity: phase >= 1 ? 1 : 0,
-          x: phase >= 1 ? 0 : '15vw',
-          scale: phase >= 1 ? 1 : 0.85,
-          y: [0, -8, 0, -8, 0],
-        }}
-        transition={{
-          opacity: { duration: 1.2, ease: [0.16, 1, 0.3, 1] },
-          x: { duration: 1.2, ease: [0.16, 1, 0.3, 1] },
-          scale: { duration: 1.2, ease: [0.16, 1, 0.3, 1] },
-          y: { duration: 6, repeat: Infinity, ease: 'easeInOut', delay: 1.5 },
-        }}
-      />
-
-      {/* Left side text stack */}
-      <div className="absolute left-[8vw] top-0 bottom-0 flex flex-col justify-center z-30 w-[44vw]">
-        {/* Gold rule */}
+      {/* Suitcase hero — centered portrait */}
+      <motion.div className="relative z-20 flex-1 flex items-center justify-center w-full px-[8vw]">
+        {/* Gold glow */}
         <motion.div
-          className="h-[2px] bg-[#E8C97A] mb-6"
-          initial={{ width: 0 }}
-          animate={{ width: phase >= 2 ? '8vw' : 0 }}
-          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          className="absolute w-[70vw] h-[70vw] rounded-full pointer-events-none"
+          style={{ background: 'radial-gradient(ellipse, rgba(232,201,122,0.18) 0%, transparent 70%)' }}
+          initial={{ scale: 0.5, opacity: 0 }} animate={{ scale: phase >= 1 ? 1 : 0.5, opacity: phase >= 1 ? 1 : 0 }}
+          transition={{ duration: 1.2 }}
         />
+        <motion.img
+          src={`${import.meta.env.BASE_URL}images/suitcase-single.png`}
+          className="relative w-[72vw] h-auto object-contain"
+          style={{ filter: 'drop-shadow(0 0 30px rgba(232,201,122,0.22)) drop-shadow(0 20px 50px rgba(0,0,0,0.9))' }}
+          initial={{ opacity: 0, y: '8vh', scale: 0.88 }}
+          animate={{
+            opacity: phase >= 2 ? 1 : 0,
+            y: phase >= 2 ? 0 : '8vh',
+            scale: phase >= 2 ? 1 : 0.88,
+          }}
+          transition={{ duration: 1.2, type: 'spring', stiffness: 60, damping: 18 }}
+        />
+      </motion.div>
 
+      {/* Bottom info block */}
+      <motion.div
+        className="relative z-10 w-full flex flex-col items-center pb-[8vh] px-[8vw] gap-[2vh]"
+        initial={{ opacity: 0, y: 20 }} animate={{ opacity: phase >= 3 ? 1 : 0, y: 0 }}
+        transition={{ duration: 0.8 }}
+      >
         <div className="overflow-hidden">
-          <motion.h1
-            className="text-[9vw] font-display font-bold text-[#E8C97A] leading-none"
-            initial={{ y: '105%' }}
-            animate={{ y: phase >= 2 ? '0%' : '105%' }}
-            transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-          >
-            Al Nasme
-          </motion.h1>
+          <motion.div
+            className="text-[14vw] font-display font-bold text-[#E8C97A] leading-none text-center tracking-wide"
+            initial={{ y: '105%' }} animate={{ y: phase >= 3 ? '0%' : '105%' }}
+            transition={{ duration: 0.8, ease: [0.16,1,0.3,1] }}
+          >Al Nasme</motion.div>
         </div>
-
-        <div className="overflow-hidden mt-1">
-          <motion.h2
-            className="text-[5.5vw] font-arabic text-white/80 leading-none"
-            initial={{ y: '105%' }}
-            animate={{ y: phase >= 3 ? '0%' : '105%' }}
-            transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-          >
-            النسمة
-          </motion.h2>
+        <div className="overflow-hidden">
+          <motion.div
+            className="text-[7vw] font-arabic text-white/70 leading-none text-center"
+            initial={{ y: '105%' }} animate={{ y: phase >= 3 ? '0%' : '105%' }}
+            transition={{ duration: 0.8, ease: [0.16,1,0.3,1], delay: 0.1 }}
+          >النسمة للحقائب الفاخرة</motion.div>
         </div>
-
-        <motion.div
-          className="mt-6 text-[2vw] font-body tracking-[0.3em] text-white/50 uppercase"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: phase >= 4 ? 1 : 0 }}
-          transition={{ duration: 1 }}
-        >
-          Premium · Luggage · Damascus
-        </motion.div>
-
         {/* Stars */}
         <motion.div
-          className="mt-5 flex gap-1"
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: phase >= 5 ? 1 : 0, y: phase >= 5 ? 0 : 10 }}
-          transition={{ duration: 0.8 }}
+          className="flex items-center gap-[1.5vw] mt-[1vh]"
+          initial={{ opacity: 0 }} animate={{ opacity: phase >= 4 ? 1 : 0 }}
+          transition={{ duration: 0.7 }}
         >
-          {['★','★','★','★','★'].map((s, i) => (
-            <motion.span
-              key={i}
-              className="text-[2.5vw] text-[#E8C97A]"
-              initial={{ opacity: 0, scale: 0 }}
-              animate={{ opacity: phase >= 5 ? 1 : 0, scale: phase >= 5 ? 1 : 0 }}
-              transition={{ delay: i * 0.1, duration: 0.4 }}
-            >{s}</motion.span>
+          {'★★★★★'.split('').map((s,i) => (
+            <motion.span key={i} className="text-[5vw] text-[#E8C97A]"
+              initial={{ scale: 0 }} animate={{ scale: phase >= 4 ? 1 : 0 }}
+              transition={{ delay: i * 0.07, duration: 0.4, type: 'spring' }}>{s}</motion.span>
           ))}
-          <motion.span
-            className="text-[1.8vw] font-body text-white/50 ml-2 self-center"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: phase >= 5 ? 1 : 0 }}
-            transition={{ delay: 0.6, duration: 0.6 }}
-          >
-            Trusted since 1985
-          </motion.span>
+          <span className="text-[3vw] font-body text-white/40 ml-[2vw]">Since 1985</span>
         </motion.div>
-      </div>
-
-      {/* Bottom strip */}
-      <motion.div
-        className="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-[#E8C97A]/40 to-transparent"
-        initial={{ scaleX: 0 }}
-        animate={{ scaleX: phase >= 2 ? 1 : 0 }}
-        transition={{ duration: 1.5, ease: 'easeOut' }}
-      />
+      </motion.div>
     </motion.div>
   );
 }
