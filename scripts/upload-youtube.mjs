@@ -4,29 +4,32 @@ import { fileURLToPath } from "url";
 import path from "path";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-
 const CLIENT_ID     = process.env.YOUTUBE_CLIENT_ID;
 const CLIENT_SECRET = process.env.YOUTUBE_CLIENT_SECRET;
 const REFRESH_TOKEN = process.env.YOUTUBE_REFRESH_TOKEN;
 
-const TITLE = "🧳 متى آخر مرة كسرت حقيبتك؟ | النسمة للحقائب | Al Nasme #Shorts";
+const TITLE = "🚀 ناسا تبحث عن أقوى مادة في الكون... النسمة سبقتهم 😂 | Al Nasme #Shorts";
 
-const DESCRIPTION = `متى آخر مرة كسرت حقيبتك؟ 😭
-لا تكرر نفس الغلطة — اختر النسمة، جودة ٤٠ سنة!
+const DESCRIPTION = `ناسا تبحث عن أقوى مادة في الكون... بس النسمة سبقتهم بـ٤٠ سنة 😂🚀
 
 📞 اتصل أو واتساب: +963 983 541 883
 🌐 الموقع: https://alnasme.shamsaver1.workers.dev/#process
-🌍 شحن لكل العالم
+🌍 شحن لكل أرجاء الكوكب!
+
+حقائب النسمة — جودة سورية أصيلة منذ ١٩٨٥
+الحقيبة التي تتحمل كل شيء... حتى المطارات! ✈️
 
 ---
 
-When did your bag last break? Choose Al Nasme — 40 years of quality Syrian craftsmanship.
+NASA is searching for the strongest material in the universe... Al Nasme beat them by 40 years 😂🚀
 
 📞 Call/WhatsApp: +963 983 541 883
 🌐 Website: https://alnasme.shamsaver1.workers.dev/#process
-🚚 Worldwide Shipping Available
+🚚 Worldwide Shipping
 
-#AlNasme #النسمة #حقائب_سفر #حقائب_فاخرة #TravelBag #Luggage #Syria #Shorts #سوريا #سفر`;
+Al Nasme Luggage — Premium Syrian craftsmanship since 1985
+
+#AlNasme #النسمة #حقائب_سفر #ناسا #NASA #Space #Funny #Shorts #Syria #سوريا #سفر #حقائب_فاخرة`;
 
 const VIDEO_PATH = resolve(__dirname, "../output/youtube-short.mp4");
 
@@ -49,7 +52,7 @@ async function uploadVideo(accessToken) {
     snippet: {
       title: TITLE,
       description: DESCRIPTION,
-      tags: ["AlNasme","النسمة","حقائب_سفر","حقائب_فاخرة","TravelBag","Luggage","Syria","Shorts","سفر","سوريا","شحن_عالمي"],
+      tags: ["AlNasme","النسمة","حقائب_سفر","NASA","Space","Funny","Shorts","Syria","سوريا","سفر","حقائب_فاخرة","humor","viral","luggage"],
       categoryId: "26",
       defaultLanguage: "ar",
     },
