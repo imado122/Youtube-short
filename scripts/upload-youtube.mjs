@@ -9,17 +9,24 @@ const CLIENT_ID     = process.env.YOUTUBE_CLIENT_ID;
 const CLIENT_SECRET = process.env.YOUTUBE_CLIENT_SECRET;
 const REFRESH_TOKEN = process.env.YOUTUBE_REFRESH_TOKEN;
 
-const TITLE = process.env.VIDEO_TITLE
-  || "😭 POV: Your bag broke at the airport... | Al Nasme #Shorts #النسمة";
+const TITLE = "🧳 متى آخر مرة كسرت حقيبتك؟ | النسمة للحقائب | Al Nasme #Shorts";
 
-const DESCRIPTION = process.env.VIDEO_DESCRIPTION
-  || `Discover Al Nasme's premium luggage collection — crafted for those who travel in style.
+const DESCRIPTION = `متى آخر مرة كسرت حقيبتك؟ 😭
+لا تكرر نفس الغلطة — اختر النسمة، جودة ٤٠ سنة!
 
-🧳 Timeless designs. Unmatched quality. Built for every journey.
+📞 اتصل أو واتساب: +963 983 541 883
+🌐 الموقع: https://alnasme.shamsaver1.workers.dev/#process
+🌍 شحن لكل العالم
 
-🛒 Shop now: https://alnasme.shamsaver1.workers.dev/#process
+---
 
-#AlNasme #LuggageCollection #TravelInStyle #النسمة #حقائب_سفر #حقائب_فاخرة #Shorts`;
+When did your bag last break? Choose Al Nasme — 40 years of quality Syrian craftsmanship.
+
+📞 Call/WhatsApp: +963 983 541 883
+🌐 Website: https://alnasme.shamsaver1.workers.dev/#process
+🚚 Worldwide Shipping Available
+
+#AlNasme #النسمة #حقائب_سفر #حقائب_فاخرة #TravelBag #Luggage #Syria #Shorts #سوريا #سفر`;
 
 const VIDEO_PATH = resolve(__dirname, "../output/youtube-short.mp4");
 
@@ -42,7 +49,7 @@ async function uploadVideo(accessToken) {
     snippet: {
       title: TITLE,
       description: DESCRIPTION,
-      tags: ["AlNasme","النسمة","LuggageCollection","حقائب_سفر","TravelInStyle","PremiumLuggage","Shorts","Travel","funny","viral"],
+      tags: ["AlNasme","النسمة","حقائب_سفر","حقائب_فاخرة","TravelBag","Luggage","Syria","Shorts","سفر","سوريا","شحن_عالمي"],
       categoryId: "26",
       defaultLanguage: "ar",
     },
