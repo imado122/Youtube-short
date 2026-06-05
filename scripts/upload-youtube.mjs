@@ -8,28 +8,33 @@ const CLIENT_ID     = process.env.YOUTUBE_CLIENT_ID;
 const CLIENT_SECRET = process.env.YOUTUBE_CLIENT_SECRET;
 const REFRESH_TOKEN = process.env.YOUTUBE_REFRESH_TOKEN;
 
-const TITLE = "🚀 ناسا تبحث عن أقوى مادة في الكون... النسمة سبقتهم 😂 | Al Nasme #Shorts";
+const TITLE = "🎓 أصعب سؤال في البكالوريا ٢٠٢٥... 😂 | حقائب النسمة | Al Nasme #Shorts #بكالوريا";
 
-const DESCRIPTION = `ناسا تبحث عن أقوى مادة في الكون... بس النسمة سبقتهم بـ٤٠ سنة 😂🚀
+const DESCRIPTION = `أصعب سؤال في بكالوريا ٢٠٢٥: أي حقيبة تشتري بعد الامتحان؟ 😂🎓
+
+مبروك لكل الناجحين! وقت السفر والاحتفال جاء 🧳✈️
 
 📞 اتصل أو واتساب: +963 983 541 883
 🌐 الموقع: https://alnasme.shamsaver1.workers.dev/#process
-🌍 شحن لكل أرجاء الكوكب!
+🌍 شحن لكل أرجاء العالم
 
-حقائب النسمة — جودة سورية أصيلة منذ ١٩٨٥
-الحقيبة التي تتحمل كل شيء... حتى المطارات! ✈️
+حقائب النسمة — هدية التخرج المثالية لكل ناجح
+جودة سورية أصيلة منذ ١٩٨٥ 🏆
 
 ---
 
-NASA is searching for the strongest material in the universe... Al Nasme beat them by 40 years 😂🚀
+Hardest Bac 2025 question: which bag for your post-exam trip? 😂🎓
+
+Congratulations to all graduates! Travel time has arrived 🧳✈️
 
 📞 Call/WhatsApp: +963 983 541 883
 🌐 Website: https://alnasme.shamsaver1.workers.dev/#process
-🚚 Worldwide Shipping
+🚚 Worldwide Shipping Available
 
-Al Nasme Luggage — Premium Syrian craftsmanship since 1985
+Al Nasme Luggage — The perfect graduation gift
+Premium Syrian craftsmanship since 1985
 
-#AlNasme #النسمة #حقائب_سفر #ناسا #NASA #Space #Funny #Shorts #Syria #سوريا #سفر #حقائب_فاخرة`;
+#بكالوريا_2025 #بكالوريا #AlNasme #النسمة #حقائب_سفر #هدية_التخرج #GraduationGift #Shorts #Syria #سوريا #سفر #Baccalaureate`;
 
 const VIDEO_PATH = resolve(__dirname, "../output/youtube-short.mp4");
 
@@ -52,7 +57,7 @@ async function uploadVideo(accessToken) {
     snippet: {
       title: TITLE,
       description: DESCRIPTION,
-      tags: ["AlNasme","النسمة","حقائب_سفر","NASA","Space","Funny","Shorts","Syria","سوريا","سفر","حقائب_فاخرة","humor","viral","luggage"],
+      tags: ["بكالوريا_2025","بكالوريا","AlNasme","النسمة","حقائب_سفر","هدية_التخرج","GraduationGift","Shorts","Syria","سوريا","سفر","Baccalaureate","graduation","funny","viral"],
       categoryId: "26",
       defaultLanguage: "ar",
     },
